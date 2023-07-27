@@ -1,8 +1,12 @@
+import type { MetaFunction } from "@remix-run/node";
+import ExpenseForm from "~/components/expenses/ExpenseForm";
 
-export default function ExpenseDetailPage() {
+export const meta: MetaFunction = () => {
+    return { title: 'Expenses | Update your expense' }
+}
+
+export default function UpdateExpensePage() {
     return (
-        <main>
-            <h1>Expense Detail</h1>
-        </main>
+        <ExpenseForm />
     )
 }
