@@ -1,8 +1,10 @@
+import {IconType} from "react-icons";
+
 interface PricingPlanProps {
   title: string
-  price: number
+  price: string
   perks: any[]
-  icon: string
+  icon: IconType
 }
 
 function PricingPlan({ title, price, perks, icon }: PricingPlanProps) {
