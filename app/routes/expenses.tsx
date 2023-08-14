@@ -1,4 +1,4 @@
-import type { LinksFunction } from "@remix-run/node";
+import type {LinksFunction, MetaFunction} from "@remix-run/node";
 import { Outlet } from "@remix-run/react";
 import expensesStyles from '~/styles/expenses.css';
 import ExpensesList from "~/components/expenses/ExpensesList";
@@ -8,6 +8,10 @@ export const links: LinksFunction = () => {
     return [
         { rel: "stylesheet", href: expensesStyles }
     ];
+}
+
+export const meta: MetaFunction = () => {
+    return { title: 'Expenses | Your expenses' }
 }
 
 export default function ExpensesLayout() {
