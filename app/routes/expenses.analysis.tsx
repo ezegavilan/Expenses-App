@@ -1,5 +1,10 @@
 import Chart from "~/components/expenses/Chart";
 import ExpenseStatistics from "~/components/expenses/ExpenseStatistics";
+import {MetaFunction} from "@remix-run/node";
+
+export const meta: MetaFunction = () => {
+    return { title: 'Expenses | Analysis' }
+}
 
 export const EXPENSES = [
     { id: 'expense-1', title: 'Frist Expense', amount: 12.99, date: new Date() },
