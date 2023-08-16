@@ -1,7 +1,6 @@
-export default function ExpensesRawPage() {
-    return (
-        <main>
-            <h1>Expenses Raw</h1>
-        </main>
-    )
+import type { LoaderFunction } from "@remix-run/node";
+import {EXPENSES} from "~/routes/__app/expenses.analysis";
+
+export const loader: LoaderFunction = () => {
+    return EXPENSES;
 }
