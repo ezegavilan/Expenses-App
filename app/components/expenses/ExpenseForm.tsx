@@ -3,9 +3,18 @@ import {Link, useActionData} from "@remix-run/react";
 function ExpenseForm() {
   const today = new Date().toISOString().slice(0, 10); // yields something like 2023-09-10
   const validationErrors = useActionData();
+/*   const submit = useSubmit();
+ */  
+/*   const submitHandler = (event: any) => {
+    event.preventDefault();
+    // do stuff on client side...
+    submit(event.target, {
+      method: 'POST'
+    });
+  } */
 
   return (
-    <form method="post" className="form" id="expense-form">
+    <form method="post" className="form" id="expense-form" /* onSubmit={submitHandler} */>
       <p>
         <label htmlFor="title">Expense Title</label>
         <input type="text" id="title" name="title" required maxLength={30} />
