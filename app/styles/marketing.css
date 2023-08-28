@@ -77,6 +77,11 @@
   width: 50%;
 }
 
+.plan:hover,
+.plan:active {
+  transform: scale(1.0125);
+}
+
 .plan header {
   padding: 1rem;
 }
