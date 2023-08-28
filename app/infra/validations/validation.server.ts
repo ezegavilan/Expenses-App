@@ -1,9 +1,9 @@
 import type { Expense } from "~/types/expense.model";
 
 type ValidationError = {
-    title: string
-    amount: string
-    date: string
+    title?: string
+    amount?: string
+    date?: string
 }
 
 function isValidTitle(value: string) {
@@ -19,7 +19,7 @@ function isValidDate(value: Date) {
 }
 
 export function validateExpenseInput(input: Expense) {
-    let validationErrors: ValidationError   = { title: '', amount: '', date: '' };
+    let validationErrors: ValidationError   = {  };
 
     if (!isValidTitle(input.title)) {
         validationErrors.title = 'Invalid expense title. Must be at most 30 characters long.'
