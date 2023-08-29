@@ -1,10 +1,15 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { LoaderArgs, LoaderFunction, MetaFunction } from "@remix-run/node";
 import ExpenseForm from "~/components/expenses/ExpenseForm";
 import Modal from "~/components/util/Modal";
-import {NavigateFunction, useNavigate} from "react-router";
+import {type NavigateFunction, useNavigate} from "react-router";
 
 export const meta: MetaFunction = () => {
     return { title: 'Expenses | Update your expense' }
+}
+
+export const loader: LoaderFunction = ({ params }: LoaderArgs) => {
+    console.log(params.expenseId);
+    
 }
 
 export default function UpdateExpensePage() {
