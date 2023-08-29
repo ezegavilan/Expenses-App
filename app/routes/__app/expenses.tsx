@@ -1,14 +1,21 @@
-import type { MetaFunction } from "@remix-run/node";
-import {Link, Outlet} from "@remix-run/react";
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
+import {Link, Outlet, useLoaderData} from "@remix-run/react";
 import ExpensesList from "~/components/expenses/ExpensesList";
-import {EXPENSES} from "~/routes/__app/expenses.analysis";
 import {FaDownload, FaPlus} from "react-icons/fa";
+import { getExpenses } from "~/infra/db/expenses.server";
+import type { Expense } from "~/types/expense.model";
 
 export const meta: MetaFunction = () => {
     return { title: 'Expenses | Your expenses' }
 }
 
+export const loader: LoaderFunction = async () => {
+    return getExpenses();
+}
+
 export default function ExpensesLayout() {
+    const expenses: Expense[] = useLoaderData();
+    
     return (
         <>
             <Outlet />
@@ -23,7 +30,7 @@ export default function ExpensesLayout() {
                         <span>Load Raw Data</span>
                     </a>
                 </section>
-                <ExpensesList expenses={ EXPENSES } />
+                <ExpensesList expenses={ expenses } />
             </main>
         </>
     )

@@ -1,5 +1,5 @@
 export type Expense = {
     title: string
     amount: number
-    date: Date
+    date: string
 }

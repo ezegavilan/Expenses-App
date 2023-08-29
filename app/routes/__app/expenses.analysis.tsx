@@ -1,6 +1,6 @@
 import Chart from "~/components/expenses/Chart";
 import ExpenseStatistics from "~/components/expenses/ExpenseStatistics";
-import {MetaFunction} from "@remix-run/node";
+import type {MetaFunction} from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
     return { title: 'Expenses | Analysis' }

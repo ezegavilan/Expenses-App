@@ -11,3 +11,14 @@ export const save = async (expense: Expense): Promise<boolean> => {
     
     return true;
 }
+
+export const getExpenses = async (): Promise<Expense[]> => {
+    try {
+        return (await prisma.expense.findMany({ orderBy: { date: 'desc' } })).map(expense => {
+            return { title: expense.title, amount: expense.amount, date: expense.date.toLocaleString() }
+        });
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
