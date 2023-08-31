@@ -1,11 +1,19 @@
-import {Form, Link, useActionData, useLoaderData, useNavigation} from "@remix-run/react";
+import {Form, Link, type RouteMatch, useActionData, useMatches, useNavigation, useParams} from "@remix-run/react";
 import type { Expense } from "~/types/expense.model";
 
 function ExpenseForm() {
+  /*
+  Ya no se puede acceder al loader porque la ruta '$expenseId' ya tiene un loader. Esto es undefined.
+  const expense: Expense = useLoaderData();
+  */
+
   const today = new Date().toISOString().slice(0, 10); // yields something like 2023-09-10
   const validationErrors = useActionData();
   const navigation = useNavigation();
-  const expense: Expense = useLoaderData();
+  const params = useParams<{ expenseId: string }>();
+  const matches: RouteMatch[] = useMatches();
+  const expenses: Expense[] = matches.find(match => match.id === 'routes/__app/expenses')?.data;
+  const expense: Expense | undefined = expenses.find(expense => expense.id === params.expenseId);
 
   const defaultValue = (expense) ? expense : { id: '', title: '', amount: '', date: '' };
 
