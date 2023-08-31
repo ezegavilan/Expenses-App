@@ -22,3 +22,13 @@ export const getExpenses = async (): Promise<Expense[]> => {
         throw error;
     }
 }
+
+export const getExpense = async (expenseId: string): Promise<Expense> => {
+    try {
+        const expense = await prisma.expense.findFirst({ where: { id: expenseId } });
+        return { id: expense!.id, title: expense!.title, amount: expense!.amount, date: expense!.date.toISOString().split('T')[0] };
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
