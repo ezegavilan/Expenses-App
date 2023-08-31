@@ -12,10 +12,22 @@ export const save = async (expense: Expense): Promise<boolean> => {
     return true;
 }
 
+export const update = async (id: string, expense: Expense) => {
+    try {
+        await prisma.expense.update({
+            where: { id },
+            data: expense
+        });
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
 export const getExpenses = async (): Promise<Expense[]> => {
     try {
         return (await prisma.expense.findMany({ orderBy: { date: 'desc' } })).map(expense => {
-            return { id: expense.id, title: expense.title, amount: expense.amount, date: expense.date.toLocaleString() }
+            return { id: expense.id, title: expense.title, amount: expense.amount, date: expense.date.toISOString() }
         });
     } catch (error) {
         console.error(error);

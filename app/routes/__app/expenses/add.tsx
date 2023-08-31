@@ -15,7 +15,7 @@ export const action: ActionFunction = async ({ request }: DataFunctionArgs) => {
     const expense: Expense = {
         title: formData.get('title')!.toString(),
         amount: Number(formData.get('amount')),
-        date: new Date(formData.get('date')!.toString())
+        date: new Date(formData.get('date')!.toString()).toISOString()
     }
 
     try {
