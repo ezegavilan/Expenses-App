@@ -1,4 +1,4 @@
-import {Link} from "@remix-run/react";
+import {Form, Link} from "@remix-run/react";
 
 interface ExpenseListItemProps {
   id: string
@@ -18,7 +18,9 @@ function ExpenseListItem({ id, title, amount }: ExpenseListItemProps) {
         <p className="expense-amount">${amount.toFixed(2)}</p>
       </div>
       <menu className="expense-actions">
-        <button onClick={deleteExpenseItemHandler}>Delete</button>
+        <Form method="DELETE" action={`/expenses/${id}`}>
+          <button onClick={deleteExpenseItemHandler}>Delete</button>
+        </Form>
         <Link to={id}>Edit</Link>
       </menu>
     </article>

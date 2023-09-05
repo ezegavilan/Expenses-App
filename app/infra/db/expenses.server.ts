@@ -44,3 +44,12 @@ export const getExpense = async (expenseId: string): Promise<Expense> => {
         throw error;
     }
 }
+
+export const deleteExpense = async (expenseId: string) => {
+    try {
+        await prisma.expense.delete({ where: { id: expenseId } });
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}

@@ -3,7 +3,7 @@ import ExpenseForm from "~/components/expenses/ExpenseForm";
 import Modal from "~/components/util/Modal";
 import {type NavigateFunction, useNavigate} from "react-router";
 import type { Expense } from "~/types/expense.model";
-import { update } from "~/infra/db/expenses.server";
+import { deleteExpense, update } from "~/infra/db/expenses.server";
 import { validateExpenseInput } from "~/infra/validations/validation.server";
 
 export const meta: MetaFunction = () => {
@@ -21,21 +21,27 @@ export const meta: MetaFunction = () => {
 
 export const action: ActionFunction = async ({ params, request }: DataFunctionArgs) => {
     const expenseId: string = params.expenseId || '';
-    const formData = await request.formData();
-    const expense: Expense = {
-        title: formData.get('title')!.toString(),
-        amount: Number(formData.get('amount')),
-        date: new Date(formData.get('date')!.toString()).toISOString()
-    }
 
-    try {
-        validateExpenseInput(expense);
-    } catch (error) {
-        return error;
-    }
+    if (request.method === 'PUT') {
+        const formData = await request.formData();
+        const expense: Expense = {
+            title: formData.get('title')!.toString(),
+            amount: Number(formData.get('amount')),
+            date: new Date(formData.get('date')!.toString()).toISOString()
+        }
     
-    await update(expenseId, expense);
-    return redirect('/expenses');
+        try {
+            validateExpenseInput(expense);
+        } catch (error) {
+            return error;
+        }
+        
+        await update(expenseId, expense);
+        return redirect('/expenses');
+    } else {
+        await deleteExpense(expenseId);
+        return redirect('/expenses');
+    }
 }
 
 export default function UpdateExpensePage() {
