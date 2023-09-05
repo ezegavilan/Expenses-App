@@ -40,7 +40,7 @@ export const action: ActionFunction = async ({ params, request }: DataFunctionAr
         return redirect('/expenses');
     } else {
         await deleteExpense(expenseId);
-        return redirect('/expenses');
+        return { deletedId: expenseId };
     }
 }
 
