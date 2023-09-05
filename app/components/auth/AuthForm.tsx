@@ -1,6 +1,6 @@
-import { Link, useSearchParams } from "@remix-run/react";
+import { Form, Link, useSearchParams } from "@remix-run/react";
 import {FaLock, FaUserPlus} from 'react-icons/fa';
-
+ 
 function AuthForm() {
   const [searchParams] = useSearchParams();
   const authMode = searchParams.get('mode') || 'login';
@@ -9,7 +9,7 @@ function AuthForm() {
   const toggleBtnCaption: string = (authMode === 'login') ? 'Create a new user' : 'Log in with existing user';
 
   return (
-    <form method="post" className="form" id="auth-form">
+    <Form method="post" className="form" id="auth-form">
       <div className="icon-img">
         <FaLock />
           {
@@ -30,7 +30,7 @@ function AuthForm() {
         <button>{ submitBtnCaption }</button>
         <Link to={ (authMode === 'login') ? '?mode=signup' : '?mode=login' }>{ toggleBtnCaption }</Link>
       </div>
-    </form>
+    </Form>
   );
 }
 
