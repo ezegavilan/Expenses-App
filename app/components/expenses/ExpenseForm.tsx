@@ -15,6 +15,12 @@ function ExpenseForm() {
   const expenses: Expense[] = matches.find(match => match.id === 'routes/__app/expenses')?.data;
   const expense: Expense | undefined = expenses.find(expense => expense.id === params.expenseId);
 
+  if (params.expenseId && !expense) {
+    return (
+      <p>Invalid expense id.</p>
+    )
+  } 
+
   const defaultValue = (expense) ? expense : { id: '', title: '', amount: '', date: '' };
 
   const isSubmiting: boolean = navigation.state !== 'idle';  
