@@ -1,6 +1,6 @@
 import type { LoaderFunction } from "@remix-run/node";
-import {EXPENSES} from "~/routes/__app/expenses.analysis";
+import { getExpenses } from "~/infra/db/expenses.server";
 
 export const loader: LoaderFunction = () => {
-    return EXPENSES;
+    return getExpenses();
 }
