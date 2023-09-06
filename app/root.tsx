@@ -32,7 +32,17 @@ export const CatchBoundary = () => {
   )
 }
 
-export function ErrorBoundary() {
+export function ErrorBoundary({ error }: any) {
+  return (
+    <Document title="An error ocurred">
+      <main>
+        <Error title="An error ocurred">
+          <p>{error.message || 'Something went wrong. Please, try again later.'}</p>
+          <p>Back to <Link to="/">safety.</Link></p>
+        </Error>
+      </main>
+    </Document>
+  )
 }
 
 function Document({ title, children }: any) {

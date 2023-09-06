@@ -6,7 +6,7 @@ export const save = async (expense: Expense): Promise<boolean> => {
         await prisma.expense.create({ data: expense });
     } catch (error) {
         console.log(error);
-        return false;
+        throw new Error('Failed to add expense.');
     }
     
     return true;
@@ -20,7 +20,7 @@ export const update = async (id: string, expense: Expense) => {
         });
     } catch (error) {
         console.error(error);
-        throw error;
+        throw new Error('Failed to update expense.');
     }
 }
 
@@ -31,7 +31,7 @@ export const getExpenses = async (): Promise<Expense[]> => {
         });
     } catch (error) {
         console.error(error);
-        throw error;
+        throw new Error('Fail to retrieve expenses.');
     }
 }
 
@@ -41,7 +41,7 @@ export const getExpense = async (expenseId: string): Promise<Expense> => {
         return { id: expense!.id, title: expense!.title, amount: expense!.amount, date: expense!.date.toISOString().split('T')[0] };
     } catch (error) {
         console.error(error);
-        throw error;
+        throw new Error('Failed to retrieve expense.');
     }
 }
 
@@ -50,6 +50,6 @@ export const deleteExpense = async (expenseId: string) => {
         await prisma.expense.delete({ where: { id: expenseId } });
     } catch (error) {
         console.error(error);
-        throw error;
+        throw new Error('Failed to delete expense.');
     }
 }
