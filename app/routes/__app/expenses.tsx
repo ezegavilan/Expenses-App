@@ -1,4 +1,4 @@
-import type { LoaderFunction, MetaFunction } from "@remix-run/node";
+import { type LoaderFunction, type MetaFunction } from "@remix-run/node";
 import {Link, Outlet, useLoaderData} from "@remix-run/react";
 import ExpensesList from "~/components/expenses/ExpensesList";
 import {FaDownload, FaPlus} from "react-icons/fa";
@@ -10,11 +10,21 @@ export const meta: MetaFunction = () => {
 }
 
 export const loader: LoaderFunction = async () => {
-    return getExpenses();
+    const expenses: Expense[] = await getExpenses();
+/*     if (!expenses || expenses.length === 0) {
+        throw json({
+            message: 'Could not find any expenses.'
+        }, {
+            status: 404,
+            statusText: 'No expenses found'
+        });
+    } */
+    return expenses;
 }
 
 export default function ExpensesLayout() {
     const expenses: Expense[] = useLoaderData();
+    const hasExpense = expenses && expenses.length > 0;
     
     return (
         <>
@@ -30,8 +40,23 @@ export default function ExpensesLayout() {
                         <span>Load Raw Data</span>
                     </a>
                 </section>
-                <ExpensesList expenses={ expenses } />
+                {hasExpense && (<ExpensesList expenses={ expenses } />)}
+                {!hasExpense && (
+                    <section id="no-expenses">
+                        <h1>No expenses found</h1>
+                        <p>Start <Link to={'add'}>adding some</Link> today.</p>
+                    </section>
+                )}
             </main>
         </>
     )
 }
+
+/* export function CatchBoundary() {
+    return (
+        <>
+        <Outlet />
+        <p>Error</p>
+        </>
+    )
+} */

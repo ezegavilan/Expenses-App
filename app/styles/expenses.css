@@ -6,6 +6,11 @@
   color: var(--color-primary-100);
 }
 
+#no-expenses a:hover,
+#no-expenses a:active {
+  cursor: pointer;
+}
+
 #expenses-actions {
   margin: 2rem 0;
   display: flex;
